@@ -1,7 +1,7 @@
 {
-  "archive": "20261102-frictionless0316rc2-00cde70a262b",
-  "captured_at": "2026-11-02T14:51:08.758864+00:00",
-  "android_version": "0.3.16-rc2",
-  "website_files": 60,
-  "website_tree_sha256": "68fda7f5e15cc3c3120c8c803b35653242a24fd52380b57bdb28018fd6e3a7c4"
+  "archive": "20261102-artwork0316rc3-79eb6dff6ddd",
+  "captured_at": "2026-11-03T04:23:06.802227+00:00",
+  "android_version": "0.3.16-rc3",
+  "website_files": 61,
+  "website_tree_sha256": "7c0c3d1e9c988a6f77fcfe50f27a013b41a15f09ed46dc7a9773f01f430211cf"
 }
