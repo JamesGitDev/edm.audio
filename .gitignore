@@ -1,0 +1,4 @@
+*.apk
+*.gz
+.env*
+node_modules/
