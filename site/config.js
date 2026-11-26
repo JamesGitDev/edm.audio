@@ -2,7 +2,7 @@
 window.EDM_CONFIG = {
   liveMode: false,
   autoStart: true,
-  androidAppUrl: 'https://electronicdancemusic.audio/downloads/Uplink-Listener-0.3.11.apk',
+  androidAppUrl: 'https://electronicdancemusic.audio/downloads/Uplink-Listener-0.3.12.apk',
   stations: [
     {id:'house',name:'House',title:'Afterglow',artist:'The EDM Audio Sessions',bpm:124,description:'Warm bass. Soulful edges. Endless movement.',keywords:'groove soulful warm drive sunset',artwork:'./assets/house.webp',previewUrl:'./assets/audio/house.mp3',streamUrl:'',nowPlayingUrl:''},
     {id:'techno',name:'Techno',title:'Night Signal',artist:'The EDM Audio Sessions',bpm:130,description:'Deep focus. Dark rooms. Pure momentum.',keywords:'dark night underground focus warehouse',artwork:'./assets/techno.webp',previewUrl:'./assets/audio/techno.mp3',streamUrl:'',nowPlayingUrl:''},
