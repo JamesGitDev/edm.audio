@@ -35,6 +35,22 @@
     } catch {}
     return null;
   }
+
+  const responsiveArtwork = {"/assets/house.webp":{"src":"./assets/house-640.2f70943ff61c.webp","thumb":"./assets/house-192.eb7e98b40bca.webp","srcset":"./assets/house-64.48f3d98f1f68.webp 64w, ./assets/house-192.eb7e98b40bca.webp 192w, ./assets/house-384.245125615932.webp 384w, ./assets/house-640.2f70943ff61c.webp 640w"},"/assets/techno.webp":{"src":"./assets/techno-640.be664c723b09.webp","thumb":"./assets/techno-192.88c570f419f6.webp","srcset":"./assets/techno-64.5fc6337f30e3.webp 64w, ./assets/techno-192.88c570f419f6.webp 192w, ./assets/techno-384.f11349c4d1e4.webp 384w, ./assets/techno-640.be664c723b09.webp 640w"},"/assets/trance.webp":{"src":"./assets/trance-640.d937d167934d.webp","thumb":"./assets/trance-192.3d5afd23c8cf.webp","srcset":"./assets/trance-64.c7d56450b402.webp 64w, ./assets/trance-192.3d5afd23c8cf.webp 192w, ./assets/trance-384.c3353b5ec809.webp 384w, ./assets/trance-640.d937d167934d.webp 640w"},"/assets/dnb.webp":{"src":"./assets/dnb-640.3dec3b4d3360.webp","thumb":"./assets/dnb-192.07cd129b230c.webp","srcset":"./assets/dnb-64.69d83bdac170.webp 64w, ./assets/dnb-192.07cd129b230c.webp 192w, ./assets/dnb-384.ad6e184157a2.webp 384w, ./assets/dnb-640.3dec3b4d3360.webp 640w"}};
+  function artworkVariant(value) {
+    try { const url=new URL(value,location.href); return url.origin===location.origin ? responsiveArtwork[url.pathname] : null; } catch { return null; }
+  }
+  function setArtwork(element,value,slot) {
+    const variant=artworkVariant(value);
+    if(variant) {
+      element.sizes=slot==='player'?'56px':slot==='small'?'48px':slot==='phone'?'240px':'(max-width: 760px) calc((100vw - 56px) / 2), (max-width: 900px) calc((100vw - 68px) / 2), 25vw';
+      element.srcset=variant.srcset;element.src=variant.src;
+    } else {
+      element.removeAttribute('srcset');element.removeAttribute('sizes');
+      if(value)element.src=value;else element.removeAttribute('src');
+    }
+  }
+
   function androidDownload() {
     const href=safeUrl(config.androidAppUrl);
     if(!href)return null;
@@ -112,7 +128,7 @@
       if(token!==operation || !wantsPlay) return;
       clearTimeout(watchdogTimer);
       if(error.name==='NotAllowedError') {
-        wantsPlay=false;clearWaiting();updateState('blocked');
+        wantsPlay=false;clearWaiting();audio.pause();audio.removeAttribute('src');audio.load();updateState('blocked');
       } else if(error.name!=='AbortError') {
         scheduleRetry();
       } else {
@@ -163,14 +179,14 @@
     $('hero-track').textContent=title;$('hero-artist').textContent=artist;
     $('player-title').textContent=title;$('player-subtitle').textContent=artist;
     $('player-genre').textContent=current.name.toUpperCase()+(live?' RADIO':' SESSION');
-    $('player-art').src=artwork;$('player-art').alt=current.name+' artwork';
-    $('phone-art').src=artwork;$('phone-track').textContent=title;
+    setArtwork($('player-art'),artwork,'player');$('player-art').alt=current.name+' artwork';
+    setArtwork($('phone-art'),artwork,'phone');$('phone-track').textContent=title;
     $('phone-genre').textContent=current.name.toUpperCase()+(live?' / LIVE RADIO':' / THE PREVIEW SESSIONS');
     $('phone-track').nextElementSibling.textContent=artist;
     $('player-progress-fill').style.width='0%';
     updateSavedUI();
     if('mediaSession' in navigator && typeof MediaMetadata!=='undefined') {
-      try{navigator.mediaSession.metadata=new MediaMetadata({title,artist,album:live?'EDM Audio Radio':'Original Preview Sessions',artwork:artwork?[{src:artwork}]:[]});}catch{}
+      try{navigator.mediaSession.metadata=new MediaMetadata({title,artist,album:live?'EDM Audio Radio':'Original Preview Sessions',artwork:artwork?[{src:artworkVariant(artwork)?.thumb||artwork}]:[]});}catch{}
     }
     document.title=(status==='playing'?title+' — ':'')+'electronicdancemusic.audio';
   }
@@ -217,7 +233,7 @@
     items.forEach(station=>{
       const row=document.createElement('div');row.className='result-row';
       const play=document.createElement('button');play.type='button';play.setAttribute('aria-label','Play '+station.name);
-      const art=document.createElement('img');art.src=station.artwork;art.alt='';art.width=48;art.height=48;
+      const art=document.createElement('img');setArtwork(art,safeUrl(station.artwork),'small');art.alt='';art.width=48;art.height=48;
       const copy=document.createElement('span');const title=document.createElement('strong');title.textContent=station.name;
       const subtitle=document.createElement('small');subtitle.textContent=live?'Live radio':station.title+' · '+station.bpm+' BPM · Preview';copy.append(title,subtitle);play.append(art,copy);
       play.addEventListener('click',()=>{closeDialogs();chooseStation(station.id);});
@@ -299,14 +315,14 @@
     Object.entries(handlers).forEach(([action,handler])=>{try{navigator.mediaSession.setActionHandler(action,handler);}catch{}});
   }
   if('serviceWorker' in navigator&&window.isSecureContext) {
-    window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+    window.addEventListener('load',()=>{const register=()=>navigator.serviceWorker.register('./sw.js').catch(()=>{});if('requestIdleCallback' in window)requestIdleCallback(register,{timeout:5000});else setTimeout(register,500);});
   }
   function applyConfig() {
     document.querySelector('[data-filter="all"] span').textContent=String(stations.length).padStart(2,'0');
     for(const card of document.querySelectorAll('[data-channel]')) {
       const station=stations.find(s=>s.id===card.dataset.channel);card.hidden=!station;
       const filter=document.querySelector('[data-filter="'+card.dataset.channel+'"]');if(filter)filter.hidden=!station;
-      if(station){card.querySelector('h3').textContent=station.name;card.querySelector(':scope > p')?.replaceChildren(document.createTextNode(station.description||''));card.querySelector('.cover-play img').src=station.artwork;if(live){card.querySelector('.preview-label').textContent='LIVE RADIO';card.querySelector('.channel-title>span').textContent='LIVE';}}
+      if(station){card.querySelector('h3').textContent=station.name;card.querySelector(':scope > p')?.replaceChildren(document.createTextNode(station.description||''));setArtwork(card.querySelector('.cover-play img'),safeUrl(station.artwork),'card');if(live){card.querySelector('.preview-label').textContent='LIVE RADIO';card.querySelector('.channel-title>span').textContent='LIVE';}}
     }
     if(live){$('hero-mode').textContent='THE LIVE FREQUENCIES';$('mode-badge').lastChild.textContent='LIVE';$('preview-disclosure').hidden=true;$('footer-preview').textContent='ELECTRONICDANCEMUSIC.AUDIO · 2026';}
     const apk=androidDownload();
