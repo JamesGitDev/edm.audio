@@ -1,5 +1,5 @@
 // Cache the interface, never a live stream or audio response. Increment on release.
-const CACHE='edm-electronicdancemusic-public-shell-20261031-player039-01';
+const CACHE='edm-onboarding0310-v1';
 const SHELL=['./','./index.html','./styles.css','./app.js','./config.js','./analytics-config.js','./analytics.js','./manifest.webmanifest','./assets/mark.svg','./assets/icon-192.png','./assets/icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL))));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('edm-electronicdancemusic-public-shell-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
