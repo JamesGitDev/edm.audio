@@ -1,0 +1,10 @@
+Uplink Listener beta 0.3.16-rc2
+November 2, 2026
+
+Install this APK as an update; do not uninstall your existing Uplink app.
+
+This beta keeps sign-in through ordinary app launches and updates. Optional fingerprint or device-unlock sign-in lets you return after deliberately signing out. Optional passkeys work through Android Credential Manager; Uplink opens Android provider setup when needed during passkey creation. Android requires your approval to enable a provider.
+
+Live radio, personal listening and your existing library use your Uplink account.
+
+Automatic phone-to-phone sign-in transfer is not enabled in this beta. Use your passkey, account password or email recovery on a replacement phone. Wider device, accessibility and network testing continues.
