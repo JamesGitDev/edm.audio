@@ -55,7 +55,7 @@
     const href=safeUrl(config.androidAppUrl);
     if(!href)return null;
     const url=new URL(href);
-    const match=url.pathname.match(/^\/downloads\/(Uplink-Listener-(\d+\.\d+\.\d+)\.apk)$/);
+    const match=url.pathname.match(/^\/downloads\/(Uplink-Listener-(\d+\.\d+\.\d+(?:-rc[1-9]\d{0,2})?)\.apk)$/);
     if(url.origin!==location.origin||url.search||url.hash||!match)return null;
     return {href:url.href,filename:match[1],version:match[2]};
   }
