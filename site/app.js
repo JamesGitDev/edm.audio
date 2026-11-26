@@ -294,7 +294,7 @@
       if(station){card.querySelector('h3').textContent=station.name;card.querySelector(':scope > p')?.replaceChildren(document.createTextNode(station.description||''));card.querySelector('.cover-play img').src=station.artwork;if(live){card.querySelector('.preview-label').textContent='LIVE RADIO';card.querySelector('.channel-title>span').textContent='LIVE';}}
     }
     if(live){$('hero-mode').textContent='THE LIVE FREQUENCIES';$('mode-badge').lastChild.textContent='LIVE';$('preview-disclosure').hidden=true;$('footer-preview').textContent='ELECTRONICDANCEMUSIC.AUDIO · 2026';}
-    if(config.androidAppUrl&&safeUrl(config.androidAppUrl)){$('install-button').innerHTML='<svg class="icon"><use href="#i-phone"/></svg>Get the Android beta <svg class="icon arrow"><use href="#i-up-right"/></svg>';document.querySelector('.app-availability').textContent='Uplink Listener beta 0.3.3 · Android 8 or newer.';}
+    if(config.androidAppUrl&&safeUrl(config.androidAppUrl)){$('install-button').innerHTML='<svg class="icon"><use href="#i-phone"/></svg>Get the Android beta <svg class="icon arrow"><use href="#i-up-right"/></svg>';const appVersion=new URL(safeUrl(config.androidAppUrl)).pathname.match(/\/Uplink-Listener-(\d+\.\d+\.\d+)\.apk$/)?.[1];document.querySelector('.app-availability').textContent='Uplink Listener beta'+(appVersion?' '+appVersion:'')+' · Android 8 or newer.';}
     $('next-button').hidden=stations.length<2;$('previous-button').hidden=stations.length<2;
   }
   applyConfig();updateVolume();updateStation();updateState(current?'ready':'unavailable');
