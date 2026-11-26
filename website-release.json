@@ -1,7 +1,7 @@
 {
-  "archive": "20261031-release0315-1c40e082e251",
-  "captured_at": "2026-11-01T04:42:19.526715+00:00",
-  "android_version": "0.3.15-rc1",
-  "website_files": 45,
-  "website_tree_sha256": "558634dc2eaa47ee7480cd7afb503daa9f33a894289a1e7ce46814f695382b84"
+  "archive": "20261031-live-like0315rc2-65c16567c482",
+  "captured_at": "2026-11-01T04:59:56.198402+00:00",
+  "android_version": "0.3.15-rc2",
+  "website_files": 46,
+  "website_tree_sha256": "30adbb16d711c173fe7471fb4cd96cf2cee2d87f7da0bdbaac6ab7ce3165bf4a"
 }
