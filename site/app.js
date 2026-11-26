@@ -330,7 +330,11 @@
     }
     if(live){$('hero-mode').textContent='THE LIVE FREQUENCIES';$('mode-badge').lastChild.textContent='LIVE';$('preview-disclosure').hidden=true;$('footer-preview').textContent='EDM.Audio · 2026';}
     const apk=androidDownload();
-    if(apk){$('install-button').innerHTML='<svg class="icon"><use href="#i-phone"/></svg>Download EDM.Audio for Android <svg class="icon arrow"><use href="#i-download"/></svg>';$('android-availability').textContent='Android beta '+apk.version+' · Android 8 or newer.';}
+    if(apk){
+      const label=apk.filename.startsWith('EDM.Audio-')?'Download EDM.Audio for Android':'Download Android beta';
+      $('install-button').innerHTML='<svg class="icon"><use href="#i-phone"/></svg>'+label+' <svg class="icon arrow"><use href="#i-download"/></svg>';
+      $('android-availability').textContent='Android beta '+apk.version+' · Android 8 or newer.';
+    }
     $('next-button').hidden=stations.length<2;$('previous-button').hidden=stations.length<2;
   }
   applyConfig();updateVolume();updateStation();updateState(current?'ready':'unavailable');
