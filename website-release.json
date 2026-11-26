@@ -1,7 +1,7 @@
 {
-  "archive": "20261103-endlessradio0316rc6-d52fcad572d5",
-  "captured_at": "2026-11-04T10:38:38.484954+00:00",
-  "android_version": "0.3.16-rc6",
-  "website_files": 64,
-  "website_tree_sha256": "d5337c7aed55025c862b0f87eaeaa2938f2b9d41440c3f0e4bb4dfe20bd6640e"
+  "archive": "20261108-seamless0316rc8-7f4c7d9d8939",
+  "captured_at": "2026-11-08T13:38:08.766855+00:00",
+  "android_version": "0.3.16-rc8",
+  "website_files": 65,
+  "website_tree_sha256": "972299c922310a9d9756393b7a210e64b319e2d3f23c8445cab25b3b4a467e83"
 }

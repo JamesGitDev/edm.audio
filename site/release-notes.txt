@@ -1,21 +1,20 @@
-Uplink Listener beta 0.3.16-rc5
-November 3, 2026
+Uplink Listener beta 0.3.16-rc8 (build 40)
+November 8, 2026
 
-Install as an update to your existing Uplink app; do not uninstall it first.
+Install as an update to your existing Uplink app; do not uninstall or clear data.
+The existing design, sign-in, artwork, library and preferences are preserved.
 
-After your initial account sign-in, Uplink offers Android confirmation for quick
-sign-in automatically. You do not need to enable it in Uplink Settings. Once
-confirmed, the welcome screen makes biometrics or device unlock the main option.
-Your phone's supported fingerprint, face or screen-lock method is used.
+This beta improves personal-radio Next and Up Next selections by reusing the
+exact authorized prepared recording. It adds bounded next-track preparation
+on ordinary cellular data, respects Android Data Saver, and primes matching
+artwork independently of audio. Playback remains owned by one native service.
 
-Uplink continues keeping your normal session signed in. Canceling optional
-quick-sign-in setup does not sign you out or interrupt your music. Passkeys,
-email/password and email recovery remain available as supported alternatives.
+The compatible Uplink server update is already installed. The APK uses the
+existing publisher signature and approved HTTPS listener gateway.
 
-Improved Library controls for small screens and larger text. Liked Songs,
-Saved Songs, search and sorting remain usable while song lists can scroll.
-The prior artwork, player-control and persistent-session improvements remain.
-
-This is a beta release tested with Android 16/API36 emulator PIN authentication.
-Physical phone/fingerprint testing continues. Phone-to-phone automatic account
-restoration remains disabled pending two-device validation.
+Matching debug builds were tested on a Pixel 10 Pro XL and Android emulator,
+including real cellular playback and a 30-minute background test. The signed
+release APK was built and verified; this is still a beta for tester feedback.
+Live startup varies with network conditions, and zero-gap playback is not
+guaranteed. A complete automatic-transition before/after comparison remains
+unfinished. Phone-transfer restoration remains disabled pending validation.
