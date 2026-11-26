@@ -1,6 +1,6 @@
 {
-  "archive": "edm-audio-4wWKsX",
-  "captured_at": "2026-11-20T18:00:48.306916+00:00",
+  "archive": "20261126-behavior-edm-audio",
+  "captured_at": "2026-11-26T20:07:35.515853+00:00",
   "android_artifacts": [
     {
       "name": "EDM.Audio-0.3.16-rc9.apk",
@@ -11,6 +11,6 @@
       "sha256": "6fc0bd52b694e47ecc71722ae07775e377ff6103165e3d8d0233784523929127"
     }
   ],
-  "website_files": 75,
-  "website_tree_sha256": "200ec6b0b3bc2c180e1969f16ecddd72e4559b081a032ac5a72ee6a9765fdb7b"
+  "website_files": 77,
+  "website_tree_sha256": "f666f081a6223b2973ce78f194c6f62967443ff162add300d81cf645f52e4bca"
 }
