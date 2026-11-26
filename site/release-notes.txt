@@ -1,0 +1,7 @@
+EDM.Audio Android beta 0.3.16-rc9 (build 41)
+
+Install this update over the existing Android listener app to keep your local settings and sign-in.
+
+This update changes the app name and adds support for verification links on edm.audio.
+
+Your account and music continue to use the existing listener service.
