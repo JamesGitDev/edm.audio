@@ -1,12 +1,21 @@
-Uplink Listener beta 0.3.16-rc4
+Uplink Listener beta 0.3.16-rc5
 November 3, 2026
 
-Install as an update; keep your existing Uplink app and sign-in.
+Install as an update to your existing Uplink app; do not uninstall it first.
 
-Removed the extra Undo feedback / skip arrow from the player controls. Tap Like again to remove your like; the existing count, saving and playback behavior are preserved.
+After your initial account sign-in, Uplink offers Android confirmation for quick
+sign-in automatically. You do not need to enable it in Uplink Settings. Once
+confirmed, the welcome screen makes biometrics or device unlock the main option.
+Your phone's supported fingerprint, face or screen-lock method is used.
 
-The rc3 artwork improvements, persistent sign-in, optional biometric sign-in and passkeys, live radio, personal listening and your library remain available.
+Uplink continues keeping your normal session signed in. Canceling optional
+quick-sign-in setup does not sign you out or interrupt your music. Passkeys,
+email/password and email recovery remain available as supported alternatives.
 
-This is a public beta. The rc4 build, existing unit tests, signing and release checks were run. The extra rc4 emulator visual check was unavailable because automatic tool approval timed out. Wider device, optional app-lock, alternate-appearance cold-start, broadcast-change/reopen and locked-screen testing continues.
+Improved Library controls for small screens and larger text. Liked Songs,
+Saved Songs, search and sorting remain usable while song lists can scroll.
+The prior artwork, player-control and persistent-session improvements remain.
 
-Automatic phone-to-phone sign-in transfer remains disabled. Use a passkey, password or email recovery on a replacement phone.
+This is a beta release tested with Android 16/API36 emulator PIN authentication.
+Physical phone/fingerprint testing continues. Phone-to-phone automatic account
+restoration remains disabled pending two-device validation.

@@ -1,7 +1,7 @@
 {
-  "archive": "20261103-like0316rc4-a730706ff97a",
-  "captured_at": "2026-11-03T08:28:18.061649+00:00",
-  "android_version": "0.3.16-rc4",
-  "website_files": 62,
-  "website_tree_sha256": "73beb73c065da646788ffbca5a4de2a25d13ebf20b7fa088dea656df325c014f"
+  "archive": "20261103-devicesignin0316rc5-0fc0adb6d737",
+  "captured_at": "2026-11-03T10:26:45.487562+00:00",
+  "android_version": "0.3.16-rc5",
+  "website_files": 63,
+  "website_tree_sha256": "22e7a8972016ed76972d9fb4fdd1d9c3645c45ecc6f5daedd93dcaf483ab0ec9"
 }
