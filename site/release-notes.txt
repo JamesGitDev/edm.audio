@@ -1,12 +1,12 @@
-Uplink Listener beta 0.3.16-rc3
-November 2, 2026
+Uplink Listener beta 0.3.16-rc4
+November 3, 2026
 
 Install as an update; keep your existing Uplink app and sign-in.
 
-Song covers now restore a matching saved thumbnail on the first player frame, then improve its resolution. Missing or unavailable covers use a neutral dark area. Artwork updates preserve playback; older image requests cannot replace a newer song or another account's artwork.
+Removed the extra Undo feedback / skip arrow from the player controls. Tap Like again to remove your like; the existing count, saving and playback behavior are preserved.
 
-Persistent sign-in, optional biometric sign-in and passkeys, live radio, personal listening, and your library remain available. Android requires your approval for credential-provider setup where needed.
+The rc3 artwork improvements, persistent sign-in, optional biometric sign-in and passkeys, live radio, personal listening and your library remain available.
 
-This is a public beta. Full broadcast-change/reopen, optional app-lock unlocking, alternate-appearance cold starts, and locked-screen presentation still need wider validation. Core artwork behavior was tested on a Pixel 10 Pro XL and an Android emulator.
+This is a public beta. The rc4 build, existing unit tests, signing and release checks were run. The extra rc4 emulator visual check was unavailable because automatic tool approval timed out. Wider device, optional app-lock, alternate-appearance cold-start, broadcast-change/reopen and locked-screen testing continues.
 
-Automatic phone-to-phone sign-in transfer remains disabled. Use your passkey, account password or email recovery on a replacement phone.
+Automatic phone-to-phone sign-in transfer remains disabled. Use a passkey, password or email recovery on a replacement phone.
