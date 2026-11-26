@@ -2,7 +2,6 @@
 # These crawl preferences do not replace authentication or access controls.
 User-agent: ia_archiver
 User-agent: archive.org_bot
-Allow: /
 Disallow: /api
 Disallow: /media
 Disallow: /stream
@@ -12,7 +11,6 @@ Disallow: /app/
 Disallow: /verify-email.html
 
 User-agent: *
-Allow: /
 Disallow: /api
 Disallow: /media
 Disallow: /stream
