@@ -97,9 +97,12 @@
       icon(button,playing?'pause':'play');
       button.setAttribute('aria-label',playing?'Pause audio':pending?'Cancel playback request':'Play '+(current?.title||'audio'));
     }
-    $('hero-play').querySelector('span').textContent=playing?'Pause listening':pending?'Connecting…':next==='blocked'?'Tap to listen':next==='error'?'Try again':'Start listening';
+    const heroLabel = playing?'Pause listening':pending?'Connecting…':next==='blocked'?'Tap to listen':next==='error'?'Try again':live?'Listen live':'Play a preview';
+    const heroButton = $('hero-play');
+    heroButton.querySelector('span').textContent = heroLabel;
+    heroButton.setAttribute('aria-label', pending ? heroLabel + ' Cancel playback' : heroLabel);
     const hints={blocked:'Your browser needs one tap to start the sound.',offline:'You’re offline. We’ll reconnect when your signal returns.',error:'The audio could not connect. Tap Play to try again.',connecting:'Finding your frequency…',reconnecting:'Your connection dropped. Finding the beat again…',buffering:'A little buffering. The music will return shortly.',unavailable:'The live station is getting ready. Check back soon.'};
-    $('playback-hint').textContent=hints[next]||(live?'Your live frequency. Wherever you are.':'Original preview mixes. One tap takes you in.');
+    $('playback-hint').textContent=hints[next]||(live?'Your live frequency. Wherever you are.':'Free browser previews. No sign-in needed.');
     for(const card of document.querySelectorAll('[data-channel]')) {
       const selected=card.dataset.channel===current?.id;
       card.classList.toggle('is-selected',selected&&playing);
@@ -395,11 +398,7 @@
     }
     if(live){$('hero-mode').textContent='THE LIVE FREQUENCIES';$('mode-badge').lastChild.textContent='LIVE';$('preview-disclosure').hidden=true;$('footer-preview').textContent='EDM.Audio · 2026';}
     const apk=androidDownload();
-    if(apk){
-      const label=apk.filename.startsWith('EDM.Audio-')?'Download EDM.Audio for Android':'Download Android beta';
-      $('install-button').innerHTML='<svg class="icon"><use href="#i-phone"/></svg>'+label+' <svg class="icon arrow"><use href="#i-download"/></svg>';
-      $('android-availability').textContent='Android beta '+apk.version+' · Android 8 or newer.';
-    }
+    if(apk)$('android-availability').textContent='Android beta '+apk.version+' · Android 8 or newer.';
     $('next-button').hidden=stations.length<2;$('previous-button').hidden=stations.length<2;
   }
   applyConfig();updateVolume();updateStation();updateState(current?'ready':'unavailable');
