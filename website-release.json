@@ -1,6 +1,7 @@
 {
-  "archive": "20261030-01-bd3a593cedcc",
-  "captured_at": "2026-10-30T20:08:20.428399+00:00",
-  "website_files": 23,
-  "website_tree_sha256": "85ff09325393cfcda8efe8ada2f68967be5c260f69822729267e241768339d61"
+  "archive": "20261030-public-01-c1e7c0077774",
+  "captured_at": "2026-10-30T22:52:39.714432+00:00",
+  "archive_status": "prepared",
+  "website_files": 18,
+  "website_tree_sha256": "52ca05ab83432d9deb7e717a5d2ac3d37ad05a2a4c56c51636d3b7e7fff265d5"
 }
