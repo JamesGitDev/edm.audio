@@ -3,6 +3,7 @@
   const $ = (id) => document.getElementById(id);
   const config = window.EDM_CONFIG || {stations:[],liveMode:false};
   const live = config.liveMode === true;
+  const usage = (event, station) => { try { window.EDM_ANALYTICS?.event(event, station); } catch {} };
   const allStations = Array.isArray(config.stations) ? config.stations : [];
   const stations = allStations.filter(s => s && /^[a-z0-9-]+$/.test(s.id) && (!live || safeUrl(s.streamUrl)));
   const audio = $('radio-audio');
@@ -41,7 +42,11 @@
   }
   function clearWaiting() {clearTimeout(retryTimer);clearTimeout(watchdogTimer);clearTimeout(stableTimer);retryTimer=null;watchdogTimer=null;stableTimer=null;}
   function updateState(next) {
-    status=next;
+    const previous=status; status=next;
+    try { window.EDM_ANALYTICS?.state(next === 'playing' ? 'playing' : ['buffering','connecting','reconnecting'].includes(next) ? 'buffering' : 'paused', current?.id); } catch {}
+    if(previous!==next&&next==='reconnecting')usage('playback_retry',current?.id);
+    if(previous!==next&&next==='buffering')usage('playback_buffering',current?.id);
+    if(previous!==next&&['playing','paused','error'].includes(next)) usage({playing:'playback_started',paused:'playback_paused',error:'playback_error'}[next],current?.id);
     const playing=next==='playing';
     const pending=next==='connecting'||next==='reconnecting'||next==='buffering';
     document.body.classList.toggle('is-playing',playing);
@@ -132,7 +137,7 @@
     if(!next) return;
     if(current?.id===id&&play){togglePlayback();return;}
     wantsPlay=false;++operation;clearWaiting();stopMetadata();audio.pause();
-    current=next;metadata=null;retryCount=0;storage.set(keys.station,id);
+    current=next;metadata=null;retryCount=0;storage.set(keys.station,id);usage('select_station',id);
     audio.removeAttribute('src');audio.load();
     updateStation();updateState('ready');
     if(play)startPlayback();
@@ -186,7 +191,7 @@
     if(!stations.some(s=>s.id===id)) return;
     if(saved.has(id)){saved.delete(id);announce('Removed from your saved frequencies.');}
     else{saved.add(id);announce('Frequency saved. Find it in Saved.');}
-    storage.set(keys.saved,[...saved]);updateSavedUI();renderSaved();
+    storage.set(keys.saved,[...saved]);updateSavedUI();renderSaved();usage(saved.has(id)?'save_station':'remove_saved_station',id);
   }
   function updateSavedUI() {
     document.querySelectorAll('[data-save]').forEach(button=>{
@@ -215,8 +220,8 @@
   }
   function renderSaved(){renderResults($('saved-results'),stations.filter(s=>saved.has(s.id)),'Your next favorite is out there. Tap the heart on any frequency to keep it here.');}
   function renderSearch(){const term=$('search-input').value.trim().toLowerCase();renderResults($('search-results'),stations.filter(s=>[s.name,s.title,s.description,s.keywords].join(' ').toLowerCase().includes(term)),'No frequencies match yet. Try house, techno, trance, or liquid.');}
-  function closeDialogs(){document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());}
-  function openDialog(id){closeDialogs();if(id==='saved-dialog')renderSaved();if(id==='search-dialog')renderSearch();const dialog=$(id);dialog?.showModal();if(id==='search-dialog')$('search-input').focus();}
+  function closeDialogs(){document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close());try { window.EDM_ANALYTICS?.view('Home'); } catch {}}
+  function openDialog(id){closeDialogs();if(id==='search-dialog')usage('open_search');if(id==='saved-dialog')usage('open_library');if(id==='saved-dialog')renderSaved();if(id==='search-dialog')renderSearch();const dialog=$(id);dialog?.showModal();try { window.EDM_ANALYTICS?.view({'search-dialog':'Search','saved-dialog':'Library','privacy-dialog':'Privacy','terms-dialog':'Terms','install-dialog':'Install','about-dialog':'About'}[id] || 'Home'); } catch {} if(id==='search-dialog')$('search-input').focus();}
 
   playButtons.forEach(button=>button.addEventListener('click',togglePlayback));
   document.querySelectorAll('[data-play]').forEach(button=>button.addEventListener('click',()=>chooseStation(button.dataset.play)));
@@ -225,6 +230,7 @@
   $('next-button').addEventListener('click',()=>stepStation(1));$('previous-button').addEventListener('click',()=>stepStation(-1));
   document.querySelectorAll('[data-open]').forEach(button=>button.addEventListener('click',()=>openDialog(button.dataset.open)));
   document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>closeDialogs()));
+  document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('close',()=>{if(!document.querySelector('dialog[open]'))try { window.EDM_ANALYTICS?.view('Home'); } catch {}}));
   document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}}));
   $('search-input').addEventListener('input',renderSearch);
   document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
@@ -239,12 +245,12 @@
     Object.values(keys).forEach(key=>storage.remove(key));saved=new Set();audio.volume=.7;audio.muted=false;$('volume').value=.7;updateVolume();updateSavedUI();renderSaved();announce('Your saved preferences have been cleared.');
   });
   $('share-button').addEventListener('click',async()=>{
-    const url=location.origin+location.pathname;
+    const url=location.origin+location.pathname;usage('share_site');
     try{if(navigator.share){await navigator.share({title:'Find your frequency — electronicdancemusic.audio',text:'Electronic music. Human connection.',url});}else if(navigator.clipboard){await navigator.clipboard.writeText(url);announce('Link copied. Share the frequency.');}else{announce('Copy this page’s address to share the frequency.');}}catch(error){if(error.name!=='AbortError')announce('Copy this page’s address to share the frequency.');}
   });
   window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;});
   $('install-button').addEventListener('click',async()=>{
-    if(config.androidAppUrl && safeUrl(config.androidAppUrl)){location.href=safeUrl(config.androidAppUrl);return;}
+    if(config.androidAppUrl && safeUrl(config.androidAppUrl)){usage('download_app');location.href=safeUrl(config.androidAppUrl);return;}
     if(installPrompt){const prompt=installPrompt;installPrompt=null;try{await prompt.prompt();const result=await prompt.userChoice;if(result.outcome==='accepted')announce('Your frequency is coming to your home screen.');}catch{openDialog('install-dialog');}}
     else openDialog('install-dialog');
   });
