@@ -35,6 +35,14 @@
     } catch {}
     return null;
   }
+  function androidDownload() {
+    const href=safeUrl(config.androidAppUrl);
+    if(!href)return null;
+    const url=new URL(href);
+    const match=url.pathname.match(/^\/downloads\/(Uplink-Listener-(\d+\.\d+\.\d+)\.apk)$/);
+    if(url.origin!==location.origin||url.search||url.hash||!match)return null;
+    return {href:url.href,filename:match[1],version:match[2]};
+  }
   function icon(button,name) {const use=button.querySelector('use');if(use) use.setAttribute('href','#i-'+name);}
   function announce(message) {
     clearTimeout(toastTimer);$('toast').textContent=message;$('toast').classList.add('visible');
@@ -250,7 +258,14 @@
   });
   window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;});
   $('install-button').addEventListener('click',async()=>{
-    if(config.androidAppUrl && safeUrl(config.androidAppUrl)){usage('download_app');location.href=safeUrl(config.androidAppUrl);return;}
+    const apk=androidDownload();
+    if(apk){
+      const link=document.createElement('a');
+      link.href=apk.href;link.download=apk.filename;link.referrerPolicy='no-referrer';link.hidden=true;
+      document.body.append(link);link.click();link.remove();usage('download_app');
+      announce('Download requested. Check your browser’s downloads for the Uplink APK.');return;
+    }
+    if(config.androidAppUrl){announce('The app download is unavailable. Please try again later.');return;}
     if(installPrompt){const prompt=installPrompt;installPrompt=null;try{await prompt.prompt();const result=await prompt.userChoice;if(result.outcome==='accepted')announce('Your frequency is coming to your home screen.');}catch{openDialog('install-dialog');}}
     else openDialog('install-dialog');
   });
@@ -294,7 +309,8 @@
       if(station){card.querySelector('h3').textContent=station.name;card.querySelector(':scope > p')?.replaceChildren(document.createTextNode(station.description||''));card.querySelector('.cover-play img').src=station.artwork;if(live){card.querySelector('.preview-label').textContent='LIVE RADIO';card.querySelector('.channel-title>span').textContent='LIVE';}}
     }
     if(live){$('hero-mode').textContent='THE LIVE FREQUENCIES';$('mode-badge').lastChild.textContent='LIVE';$('preview-disclosure').hidden=true;$('footer-preview').textContent='ELECTRONICDANCEMUSIC.AUDIO · 2026';}
-    if(config.androidAppUrl&&safeUrl(config.androidAppUrl)){$('install-button').innerHTML='<svg class="icon"><use href="#i-phone"/></svg>Get the Android beta <svg class="icon arrow"><use href="#i-up-right"/></svg>';const appVersion=new URL(safeUrl(config.androidAppUrl)).pathname.match(/\/Uplink-Listener-(\d+\.\d+\.\d+)\.apk$/)?.[1];document.querySelector('.app-availability').textContent='Uplink Listener beta'+(appVersion?' '+appVersion:'')+' · Android 8 or newer.';}
+    const apk=androidDownload();
+    if(apk){$('install-button').innerHTML='<svg class="icon"><use href="#i-phone"/></svg>Download Android app <svg class="icon arrow"><use href="#i-download"/></svg>';document.querySelector('.app-availability').textContent='Uplink Listener beta '+apk.version+' · Android 8 or newer.';}
     $('next-button').hidden=stations.length<2;$('previous-button').hidden=stations.length<2;
   }
   applyConfig();updateVolume();updateStation();updateState(current?'ready':'unavailable');
