@@ -1,7 +1,7 @@
 {
-  "archive": "20261101-signin0315rc10-10ad2513b5d4",
-  "captured_at": "2026-11-02T00:33:50.163364+00:00",
-  "android_version": "0.3.15-rc10",
-  "website_files": 54,
-  "website_tree_sha256": "e0fb87b8fc525d0cc675acbdbd0b23328a5479b4027de514ebec1ca24ff018ae"
+  "archive": "20261101-savesignin0315rc11-81dc6e78dd31",
+  "captured_at": "2026-11-02T01:46:07.558388+00:00",
+  "android_version": "0.3.15-rc11",
+  "website_files": 55,
+  "website_tree_sha256": "146dc65fa1083d4ecc3eb1bfd393f06b79c4687651ce879a17b6a4780a51d652"
 }
