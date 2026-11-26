@@ -1,8 +1,7 @@
 {
-  "archive": "20261031-direct-download-7dee6e2fa382",
-  "captured_at": "2026-10-31T07:06:42.898676+00:00",
-  "android_version": "0.3.7",
-  "android_sha256": "4f7c7fe8524a631509add0b6c3ab70de6852f0c819e9f0390705dbc81cc22b25",
+  "archive": "20261031-account038-b09be3d3dc09",
+  "captured_at": "2026-10-31T07:44:36.231344+00:00",
+  "android_version": "0.3.8",
   "website_files": 22,
-  "website_tree_sha256": "d4c5811f94e99fa97311713d81a58676eb86db4602313cf367432e07bd14a681"
+  "website_tree_sha256": "5400ced7a5434dc5f0e05b3b39df8fc78757c3a8b363ff0efb2d7c783b96c2ff"
 }
