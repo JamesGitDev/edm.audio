@@ -1,7 +1,7 @@
 {
-  "archive": "20261031-analytics035-8c5ac48d7264",
-  "captured_at": "2026-10-31T03:53:36.269329+00:00",
+  "archive": "20261031-android-association-2af4106ef832",
+  "captured_at": "2026-10-31T05:29:05.678181+00:00",
   "android_version": "0.3.5",
-  "website_files": 20,
-  "website_tree_sha256": "4e6f18a303908e8a22c80ab715494c2e52c696c579599bb25852ef620a8d9feb"
+  "website_files": 21,
+  "website_tree_sha256": "beb314cf2161e607dae747a9c875b971c3b752c07da8598701aa767d690d63cc"
 }
