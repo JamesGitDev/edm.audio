@@ -1,23 +1,8 @@
-Android listener beta 0.3.16-rc8 (build 40)
-November 8, 2026
+EDM.Audio Android beta 0.3.16-rc9 (build 41)
 
-The current Android download shows the original launcher label until the
-EDM.Audio Android update is available.
+Install this update over the existing Android listener app to keep your local settings and sign-in.
 
-Install as an update to the existing listener app; do not uninstall or clear data.
-The existing design, sign-in, artwork, library and preferences are preserved.
+This update changes the app name and adds support for verification links on edm.audio.
 
-This beta improves personal-radio Next and Up Next selections by reusing the
-exact authorized prepared recording. It adds bounded next-track preparation
-on ordinary cellular data, respects Android Data Saver, and primes matching
-artwork independently of audio. Playback remains owned by one native service.
+Your account and music continue to use the existing listener service.
 
-The compatible listener server update is already installed. The APK uses the
-existing publisher signature and approved HTTPS listener gateway.
-
-Matching debug builds were tested on a Pixel 10 Pro XL and Android emulator,
-including real cellular playback and a 30-minute background test. The signed
-release APK was built and verified; this is still a beta for tester feedback.
-Live startup varies with network conditions, and zero-gap playback is not
-guaranteed. A complete automatic-transition before/after comparison remains
-unfinished. Phone-transfer restoration remains disabled pending validation.
