@@ -1,7 +1,7 @@
 {
-  "archive": "20261031-account038-b09be3d3dc09",
-  "captured_at": "2026-10-31T07:44:36.231344+00:00",
-  "android_version": "0.3.8",
+  "archive": "20261031-player039-c5eba27c093d",
+  "captured_at": "2026-10-31T09:08:21.242680+00:00",
+  "android_version": "0.3.9",
   "website_files": 22,
-  "website_tree_sha256": "5400ced7a5434dc5f0e05b3b39df8fc78757c3a8b363ff0efb2d7c783b96c2ff"
+  "website_tree_sha256": "e3aec7651f8dfbedc6401950e8f9f183b80032d5abfecc6f4c9d9e7845ac44d9"
 }
