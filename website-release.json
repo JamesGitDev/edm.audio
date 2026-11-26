@@ -1,7 +1,7 @@
 {
-  "archive": "20261031-mobileperf-37b683131e17",
-  "captured_at": "2026-10-31T12:08:14.478416+00:00",
-  "android_version": "0.3.12",
-  "website_files": 42,
-  "website_tree_sha256": "1127f9291b1574db6d97df300702ec6bbec8c98a162913d2a000da414bfdfe83"
+  "archive": "20261031-sizing0313-a3030b42c393",
+  "captured_at": "2026-10-31T14:36:29.896787+00:00",
+  "android_version": "0.3.13",
+  "website_files": 43,
+  "website_tree_sha256": "3b0d69e81114a498c34111412cffd794d15956f41e74a89bc94ad93d75a4b7e3"
 }
