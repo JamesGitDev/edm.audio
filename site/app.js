@@ -55,7 +55,7 @@
     const href=safeUrl(config.androidAppUrl);
     if(!href)return null;
     const url=new URL(href);
-    const match=url.pathname.match(/^\/downloads\/(Uplink-Listener-(\d+\.\d+\.\d+(?:-rc[1-9]\d{0,2})?)\.apk)$/);
+    const match=url.pathname.match(/^\/downloads\/((?:Uplink-Listener|EDM\.Audio)-(\d+\.\d+\.\d+(?:-rc[1-9]\d{0,2})?)\.apk)$/);
     if(url.origin!==location.origin||url.search||url.hash||!match)return null;
     return {href:url.href,filename:match[1],version:match[2]};
   }
@@ -173,7 +173,7 @@
   function updateStation() {
     if(!current) return;
     const title=metadata?.title||(live?current.name+' Radio':current.title);
-    const artist=metadata?.artist||(live?'electronicdancemusic.audio':current.artist);
+    const artist=metadata?.artist||(live?'EDM.Audio':current.artist);
     const artwork=safeUrl(metadata?.artwork)||safeUrl(current.artwork);
     $('hero-genre').textContent=live?current.name.toUpperCase()+' / LIVE RADIO':current.name.toUpperCase()+' / '+current.bpm+' BPM';
     $('hero-track').textContent=title;$('hero-artist').textContent=artist;
@@ -186,9 +186,9 @@
     $('player-progress-fill').style.width='0%';
     updateSavedUI();
     if('mediaSession' in navigator && typeof MediaMetadata!=='undefined') {
-      try{navigator.mediaSession.metadata=new MediaMetadata({title,artist,album:live?'EDM Audio Radio':'Original Preview Sessions',artwork:artwork?[{src:artworkVariant(artwork)?.thumb||artwork}]:[]});}catch{}
+      try{navigator.mediaSession.metadata=new MediaMetadata({title,artist,album:live?'EDM.Audio Radio':'Original Preview Sessions',artwork:artwork?[{src:artworkVariant(artwork)?.thumb||artwork}]:[]});}catch{}
     }
-    document.title=(status==='playing'?title+' — ':'')+'electronicdancemusic.audio';
+    document.title=(status==='playing'?title+' — ':'')+'EDM.Audio';
   }
   function stopMetadata() {clearTimeout(metadataTimer);metadataAbort?.abort();metadataAbort=null;}
   async function refreshMetadata() {
@@ -203,7 +203,7 @@
       if(!response.ok)throw new Error('metadata unavailable');
       const data=await response.json();
       if(current.id===stationId&&wantsPlay&&data&&typeof data.title==='string') {
-        metadata={title:data.title.slice(0,160),artist:typeof data.artist==='string'?data.artist.slice(0,160):'electronicdancemusic.audio',artwork:safeUrl(data.artwork)};
+        metadata={title:data.title.slice(0,160),artist:typeof data.artist==='string'?data.artist.slice(0,160):'EDM.Audio',artwork:safeUrl(data.artwork)};
         updateStation();
       }
     } catch {} finally {
@@ -270,7 +270,7 @@
   });
   $('share-button').addEventListener('click',async()=>{
     const url=location.origin+location.pathname;usage('share_site');
-    try{if(navigator.share){await navigator.share({title:'Find your frequency — electronicdancemusic.audio',text:'Electronic music. Human connection.',url});}else if(navigator.clipboard){await navigator.clipboard.writeText(url);announce('Link copied. Share the frequency.');}else{announce('Copy this page’s address to share the frequency.');}}catch(error){if(error.name!=='AbortError')announce('Copy this page’s address to share the frequency.');}
+    try{if(navigator.share){await navigator.share({title:'Find your frequency — EDM.Audio',text:'Electronic music. Human connection.',url});}else if(navigator.clipboard){await navigator.clipboard.writeText(url);announce('Link copied. Share the frequency.');}else{announce('Copy this page’s address to share the frequency.');}}catch(error){if(error.name!=='AbortError')announce('Copy this page’s address to share the frequency.');}
   });
   window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;});
   $('install-button').addEventListener('click',async()=>{
@@ -279,13 +279,17 @@
       const link=document.createElement('a');
       link.href=apk.href;link.download=apk.filename;link.referrerPolicy='no-referrer';link.hidden=true;
       document.body.append(link);link.click();link.remove();usage('download_app');
-      announce('Download requested. Check your browser’s downloads for the Uplink APK.');return;
+      announce('Download requested. Check your browser’s downloads for the Android APK.');return;
     }
     if(config.androidAppUrl){announce('The app download is unavailable. Please try again later.');return;}
-    if(installPrompt){const prompt=installPrompt;installPrompt=null;try{await prompt.prompt();const result=await prompt.userChoice;if(result.outcome==='accepted')announce('Your frequency is coming to your home screen.');}catch{openDialog('install-dialog');}}
-    else openDialog('install-dialog');
+    await installWebApp();
   });
-  window.addEventListener('appinstalled',()=>{installPrompt=null;announce('Your frequency is on your home screen.');});
+  $('install-web-button').addEventListener('click',installWebApp);
+  async function installWebApp(){
+    if(installPrompt){const prompt=installPrompt;installPrompt=null;try{await prompt.prompt();const result=await prompt.userChoice;if(result.outcome==='accepted')announce('EDM.Audio is coming to your home screen.');}catch{openDialog('install-dialog');}}
+    else openDialog('install-dialog');
+  }
+  window.addEventListener('appinstalled',()=>{installPrompt=null;announce('EDM.Audio is on your home screen.');});
 
   audio.addEventListener('playing',()=>{
     if(!wantsPlay){audio.pause();return;}
@@ -324,9 +328,9 @@
       const filter=document.querySelector('[data-filter="'+card.dataset.channel+'"]');if(filter)filter.hidden=!station;
       if(station){card.querySelector('h3').textContent=station.name;card.querySelector(':scope > p')?.replaceChildren(document.createTextNode(station.description||''));setArtwork(card.querySelector('.cover-play img'),safeUrl(station.artwork),'card');if(live){card.querySelector('.preview-label').textContent='LIVE RADIO';card.querySelector('.channel-title>span').textContent='LIVE';}}
     }
-    if(live){$('hero-mode').textContent='THE LIVE FREQUENCIES';$('mode-badge').lastChild.textContent='LIVE';$('preview-disclosure').hidden=true;$('footer-preview').textContent='ELECTRONICDANCEMUSIC.AUDIO · 2026';}
+    if(live){$('hero-mode').textContent='THE LIVE FREQUENCIES';$('mode-badge').lastChild.textContent='LIVE';$('preview-disclosure').hidden=true;$('footer-preview').textContent='EDM.Audio · 2026';}
     const apk=androidDownload();
-    if(apk){$('install-button').innerHTML='<svg class="icon"><use href="#i-phone"/></svg>Download Android app <svg class="icon arrow"><use href="#i-download"/></svg>';document.querySelector('.app-availability').textContent='Uplink Listener beta '+apk.version+' · Android 8 or newer.';}
+    if(apk){$('install-button').innerHTML='<svg class="icon"><use href="#i-phone"/></svg>Download EDM.Audio for Android <svg class="icon arrow"><use href="#i-download"/></svg>';$('android-availability').textContent='Android beta '+apk.version+' · Android 8 or newer.';}
     $('next-button').hidden=stations.length<2;$('previous-button').hidden=stations.length<2;
   }
   applyConfig();updateVolume();updateStation();updateState(current?'ready':'unavailable');

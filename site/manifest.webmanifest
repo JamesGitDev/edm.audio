@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "electronicdancemusic.audio",
-  "short_name": "EDM Audio",
+  "name": "EDM.Audio",
+  "short_name": "EDM.Audio",
   "description": "Find your frequency. Your home for electronic music.",
   "start_url": "./",
   "scope": "./",

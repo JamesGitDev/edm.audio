@@ -19,4 +19,4 @@ Disallow: /downloads/
 Disallow: /app/
 Disallow: /verify-email.html
 
-Sitemap: https://electronicdancemusic.audio/sitemap.xml
+Sitemap: https://edm.audio/sitemap.xml

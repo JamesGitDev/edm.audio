@@ -1,7 +1,12 @@
 {
-  "archive": "20261108-seamless0316rc8-7f4c7d9d8939",
-  "captured_at": "2026-11-08T13:38:08.766855+00:00",
-  "android_version": "0.3.16-rc8",
-  "website_files": 65,
-  "website_tree_sha256": "972299c922310a9d9756393b7a210e64b319e2d3f23c8445cab25b3b4a467e83"
+  "archive": "20261120-edm-audio",
+  "captured_at": "2026-11-20T16:08:05.563847+00:00",
+  "android_artifacts": [
+    {
+      "name": "Uplink-Listener-0.3.16-rc8.apk",
+      "sha256": "6fc0bd52b694e47ecc71722ae07775e377ff6103165e3d8d0233784523929127"
+    }
+  ],
+  "website_files": 72,
+  "website_tree_sha256": "043183c694f47cce6175d12b793a029965f778f3c590eabd9a47311da0b8996a"
 }

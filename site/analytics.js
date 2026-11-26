@@ -3,7 +3,7 @@
   const config = window.EDM_ANALYTICS_CONFIG || {};
   const id = config.measurementId;
   const key = 'edm.analytics-consent.v1';
-  const host = 'electronicdancemusic.audio';
+  const host = 'edm.audio';
   const configured = /^G-[A-Z0-9]{6,20}$/.test(id || '') && config.enhancedMeasurementDisabled === true;
   const allowedPage = location.protocol === 'https:' && location.hostname === host && ['/', '/index.html'].includes(location.pathname);
   const optOut = navigator.globalPrivacyControl === true || navigator.doNotTrack === '1';
@@ -14,7 +14,7 @@
   function flush() {
     const now = performance.now(), elapsed = Math.min(120000, Math.max(0, Math.round(now - since))); since = now;
     if (!elapsed || !enabled || !loaded || !configured || !allowedPage || optOut) return;
-    const params = {screen, page_location:'https://' + host + '/', page_referrer:'', page_title:'ElectronicDanceMusic.Audio', send_to:id};
+    const params = {screen, page_location:'https://' + host + '/', page_referrer:'', page_title:'EDM.Audio', send_to:id};
     if (foreground) {
       tag('event', 'foreground_time', {...params, foreground_duration_ms:elapsed});
       tag('event', 'screen_time', {...params, screen_duration_ms:elapsed});
@@ -48,10 +48,10 @@
       tag('consent', 'default', {analytics_storage:'denied', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
       tag('set', 'ads_data_redaction', true);
       tag('set', 'url_passthrough', false);
-      tag('set', {page_location:'https://' + host + '/', page_referrer:'', page_title:'ElectronicDanceMusic.Audio'});
+      tag('set', {page_location:'https://' + host + '/', page_referrer:'', page_title:'EDM.Audio'});
       tag('consent', 'update', {analytics_storage:'granted', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
       tag('js', new Date());
-      tag('config', id, {send_page_view:false, allow_google_signals:false, allow_ad_personalization_signals:false, cookie_flags:'SameSite=Lax;Secure', cookie_expires:2592000, page_location:'https://' + host + '/', page_referrer:'', page_title:'ElectronicDanceMusic.Audio'});
+      tag('config', id, {send_page_view:false, allow_google_signals:false, allow_ad_personalization_signals:false, cookie_flags:'SameSite=Lax;Secure', cookie_expires:2592000, page_location:'https://' + host + '/', page_referrer:'', page_title:'EDM.Audio'});
       const script = document.createElement('script');
       script.id = 'edm-google-analytics'; script.async = true; script.referrerPolicy = 'no-referrer';
       script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
@@ -63,7 +63,7 @@
   const stationIds = new Set(['house', 'techno', 'trance', 'dnb']);
   function event(name, station) {
     if (!enabled || !configured || !allowedPage || optOut || !loaded || !events.has(name)) return;
-    const params = {send_to:id, page_location:'https://' + host + '/', page_referrer:'', page_title:'ElectronicDanceMusic.Audio'};
+    const params = {send_to:id, page_location:'https://' + host + '/', page_referrer:'', page_title:'EDM.Audio'};
     if (stationIds.has(station)) params.station = station;
     tag('event', name, params);
   }

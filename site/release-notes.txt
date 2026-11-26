@@ -1,7 +1,10 @@
-Uplink Listener beta 0.3.16-rc8 (build 40)
+Android listener beta 0.3.16-rc8 (build 40)
 November 8, 2026
 
-Install as an update to your existing Uplink app; do not uninstall or clear data.
+The current Android download shows the original launcher label until the
+EDM.Audio Android update is available.
+
+Install as an update to the existing listener app; do not uninstall or clear data.
 The existing design, sign-in, artwork, library and preferences are preserved.
 
 This beta improves personal-radio Next and Up Next selections by reusing the
@@ -9,7 +12,7 @@ exact authorized prepared recording. It adds bounded next-track preparation
 on ordinary cellular data, respects Android Data Saver, and primes matching
 artwork independently of audio. Playback remains owned by one native service.
 
-The compatible Uplink server update is already installed. The APK uses the
+The compatible listener server update is already installed. The APK uses the
 existing publisher signature and approved HTTPS listener gateway.
 
 Matching debug builds were tested on a Pixel 10 Pro XL and Android emulator,
