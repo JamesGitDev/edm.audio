@@ -32,6 +32,11 @@ The November 20 launch switched the display name and public links to EDM.Audio. 
 - Preload the matching mobile hero, reduce the pinned player thumbnail's fetch priority, and serve a precompressed Brotli homepage to compatible browsers.
 - In three paired local Lighthouse runs with actual mobile throttling, median LCP went from 1.49 to 1.46 seconds and median Speed Index from 0.88 to 0.86 seconds. Tested one hero request per load, the WebP fallback, and matching artwork placement at desktop and mobile widths.
 
+## Player progress animation
+
+- Animate preview progress with a horizontal transform so the progress bar advances without changing layout width.
+- Verified in mobile Chromium that the compositor handles the transition. Playback, pause, station changes, and the reduced-motion setting behaved as expected.
+
 ## Recovered snapshots
 
 The file column shows changes to the archived frontend. Use the linked diff for additions, removals, and the Android package metadata for each version.
