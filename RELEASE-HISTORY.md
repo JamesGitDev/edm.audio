@@ -37,6 +37,12 @@ The November 20 launch switched the display name and public links to EDM.Audio. 
 - Animate preview progress with a horizontal transform so the progress bar advances without changing layout width.
 - Verified in mobile Chromium that the compositor handles the transition. Playback, pause, station changes, and the reduced-motion setting behaved as expected.
 
+## Earlier phone artwork
+
+- Embed a small WebP preview of the existing hero art in the homepage. Phones up to 480 CSS pixels display it while the full-size image loads. The full image paints over it in the same frame.
+- Matched mobile Lighthouse runs put Speed Index at about 0.79 seconds with the preview and 0.86 seconds before. First Contentful Paint stayed around 0.66 seconds. The Brotli homepage grew by about 0.8 KiB and the preview adds no network request.
+- Compared the final artwork at seven phone, tablet, and desktop widths. Checked the mobile WebP fallback and held the full image request to verify that the preview and the play button were already visible.
+
 ## Recovered snapshots
 
 The file column shows changes to the archived frontend. Use the linked diff for additions, removals, and the Android package metadata for each version.
