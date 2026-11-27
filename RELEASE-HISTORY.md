@@ -26,6 +26,12 @@ The November 20 launch switched the display name and public links to EDM.Audio. 
 - Add Schema.org `WebSite` JSON-LD and matching `og:site_name` metadata to the canonical homepage.
 - Verified the name and URL in the Schema Markup Validator with zero errors and zero warnings. The URL matches the canonical link and sitemap.
 
+## Mobile artwork delivery
+
+- Serve five responsive AVIF sizes of the existing hero artwork on phone widths up to 480 CSS pixels. The WebP fallback shares the same framing. The 768-pixel resource used by the mobile test fell from 28.3 to 16.6 KiB.
+- Preload the matching mobile hero, reduce the pinned player thumbnail's fetch priority, and serve a precompressed Brotli homepage to compatible browsers.
+- In three paired local Lighthouse runs with actual mobile throttling, median LCP went from 1.49 to 1.46 seconds and median Speed Index from 0.88 to 0.86 seconds. Tested one hero request per load, the WebP fallback, and matching artwork placement at desktop and mobile widths.
+
 ## Recovered snapshots
 
 The file column shows changes to the archived frontend. Use the linked diff for additions, removals, and the Android package metadata for each version.

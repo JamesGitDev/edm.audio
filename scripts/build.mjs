@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { cp, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { gzipSync } from 'node:zlib';
+import { brotliCompressSync, gzipSync } from 'node:zlib';
 import { transform } from 'esbuild';
 
 const project = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -31,7 +31,9 @@ try {
   }
   const html = template.replace(cssMarker, () => css).replace(bundleMarker, bundle);
   const revision = digest(html);
-  await writeFile(join(build, 'index.html'), html.replace('<html ', '<html data-edm-release="' + revision + '" '));
+  const homepage = html.replace('<html ', '<html data-edm-release="' + revision + '" ');
+  await writeFile(join(build, 'index.html'), homepage);
+  await writeFile(join(build, 'index.html.br'), brotliCompressSync(homepage));
   await writeFile(join(build, 'sw.js'), worker.replaceAll(bundleMarker, bundle).replaceAll(revisionMarker, revision));
 
   async function compress(directory) {
