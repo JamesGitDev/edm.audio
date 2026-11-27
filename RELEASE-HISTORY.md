@@ -12,6 +12,12 @@ The November 20 launch switched the display name and public links to EDM.Audio. 
 - **Mobile loading.** Prioritize smaller phone artwork and defer below-the-fold images. The before and after mobile medians were 157 to 69 KiB, 1.49 to 1.55 seconds, Lighthouse 100 to 99. These came from three cold Lighthouse runs per version.
 - **GitHub baseline.** [`05f060e`](https://github.com/JamesGitDev/edm.audio/commit/05f060e75f0f6e14083041e202880cd6547b077d) imports the editable build and records release revision `d7350544043f`. The build reproduced the homepage, JavaScript bundle, and service worker from the live release.
 
+## Keyboard and screen-reader accessibility
+
+- Keep focus visible on station artwork, Save buttons, and genre filters. Reserve scroll space for the pinned player and the analytics notice, and reveal focused controls immediately during keyboard navigation.
+- Restore focus after analytics consent and when a saved station disappears. Announce the search result count and expose the site footer as a landmark.
+- Verified Chromium keyboard navigation and the accessibility tree at 1440, 390, and 320 CSS pixels. Rechecked playback, downloads, analytics consent, and privacy behavior in the local release preview.
+
 ## Recovered snapshots
 
 The file column shows changes to the archived frontend. Use the linked diff for additions, removals, and the Android package metadata for each version.
